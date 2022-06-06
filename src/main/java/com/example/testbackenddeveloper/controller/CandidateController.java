@@ -1,6 +1,7 @@
 package com.example.testbackenddeveloper.controller;
 
 import com.example.testbackenddeveloper.models.entities.Candidate;
+import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.services.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping("/")
-    public ResponseEntity<Candidate>create(@RequestBody Candidate candidate) {
+    public ResponseEntity<Candidate>create(@RequestBody CandidateDto candidate) {
         return new ResponseEntity<>(candidateService.save(candidate), HttpStatus.CREATED);
     }
 

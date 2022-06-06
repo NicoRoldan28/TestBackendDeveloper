@@ -1,15 +1,16 @@
 package com.example.testbackenddeveloper.services.impl;
 
 import com.example.testbackenddeveloper.models.entities.Technology;
+import com.example.testbackenddeveloper.models.views.TechnologyDto;
 import com.example.testbackenddeveloper.repository.TechnologyRepository;
-import com.example.testbackenddeveloper.services.TechonologyService;
+import com.example.testbackenddeveloper.services.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TechonologyServiceImp implements TechonologyService {
+public class TechnologyServiceImp implements TechnologyService {
 
     @Autowired
     private TechnologyRepository technologyRepository;
@@ -25,17 +26,26 @@ public class TechonologyServiceImp implements TechonologyService {
     }
 
     @Override
-    public void deleteTechonology(Long id) {
+    public void deleteTechnology(Long id) {
         technologyRepository.deleteById(id);
     }
 
     @Override
-    public Technology save(Technology technology) {
+    public Technology save(TechnologyDto technologyDto) {
+
+        Technology technology = Technology.builder()
+                .name(technologyDto.getName())
+                .version(technologyDto.getVersion())
+                .build();
         return technologyRepository.save(technology);
     }
 
     @Override
-    public Technology update(Technology technology, Long id) {
+    public Technology update(TechnologyDto technologyDto, Long id) {
+        Technology technology = Technology.builder()
+                .name(technologyDto.getName())
+                .version(technologyDto.getVersion())
+                .build();
         return technologyRepository.save(technology);
     }
 }

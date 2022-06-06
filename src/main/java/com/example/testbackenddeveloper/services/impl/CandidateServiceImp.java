@@ -1,8 +1,10 @@
 package com.example.testbackenddeveloper.services.impl;
 
 import com.example.testbackenddeveloper.models.entities.Candidate;
+import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.repository.CandidateRepository;
 import com.example.testbackenddeveloper.services.CandidateService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,15 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
-    public Candidate save(Candidate candidate) {
+    public Candidate save(CandidateDto candidateDto) {
+
+        Candidate candidate = Candidate.builder()
+                .birthday(candidateDto.getBirthday())
+                .dni(candidateDto.getDni())
+                .name(candidateDto.getName())
+                .lastName(candidateDto.getLastName())
+                .type(candidateDto.getType())
+                .build();
         return candidateRepository.save(candidate);
     }
 
