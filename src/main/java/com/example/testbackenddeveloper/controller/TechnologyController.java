@@ -44,7 +44,7 @@ public class TechnologyController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/{id")
+    @PatchMapping("/{id}")
     public ResponseEntity<Object>updateTechnology(@RequestBody Technology technology,@RequestParam Long id) {
         return new ResponseEntity<>(techonologyService.update(technology,id), HttpStatus.OK);
     }

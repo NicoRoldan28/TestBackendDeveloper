@@ -28,7 +28,6 @@ public class CandidateController {
         return new ResponseEntity<>(candidateService.save(candidate), HttpStatus.CREATED);
     }
 
-
     @GetMapping("/")
     public ResponseEntity<List<Candidate>>getAll() {
         return new ResponseEntity<>(candidateService.findAll(), HttpStatus.OK);
@@ -45,7 +44,7 @@ public class CandidateController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/{id")
+    @PatchMapping("/{id}")
     public ResponseEntity<Object>updateCandidate(@RequestBody Candidate candidate, @RequestParam Long id) {
         return new ResponseEntity<>(candidateService.update(candidate,id), HttpStatus.OK);
     }
