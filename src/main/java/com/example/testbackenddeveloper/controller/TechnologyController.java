@@ -34,6 +34,6 @@ public class TechnologyController {
     }
 
     @PatchMapping("/{id")
-    public ResponseEntity<Object>updateCandidate(@RequestParam Long id) {
+    public ResponseEntity<Object>updateTechnology(@RequestParam Long id) {
     }
 }
