@@ -1,8 +1,8 @@
 package com.example.testbackenddeveloper.models.entities;
 
 import com.example.testbackenddeveloper.models.enums.Type;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,12 +25,13 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "candidato")
+@Table(name = "candidatos")
 public class Candidate {
 
+    public static final String fechaDeCumpleaños = "cumpleaños";
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long candidateId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long candidateId;
 
     @Column(name = "nombre")
     private String name;
@@ -45,8 +46,11 @@ public class Candidate {
     @Column(name = "dni")
     private String dni;
 
-    @Column(name = "cumpleaños")
     @JsonFormat(timezone = "yyyy-MM-dd")
     private LocalDate birthday;
+
+    @OneToMany(mappedBy = "candidate")
+    @JsonBackReference
+    private List<CandidateByTechnology> candidateByTechnologies;
 
 }

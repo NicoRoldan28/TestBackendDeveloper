@@ -4,7 +4,6 @@ import com.example.testbackenddeveloper.models.entities.Candidate;
 import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.repository.CandidateRepository;
 import com.example.testbackenddeveloper.services.CandidateService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

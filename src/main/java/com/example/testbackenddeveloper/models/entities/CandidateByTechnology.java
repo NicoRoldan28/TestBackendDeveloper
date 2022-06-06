@@ -1,6 +1,12 @@
 package com.example.testbackenddeveloper.models.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,13 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name = "candidato_x_terconologia")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+@Builder
+@Table(name = "candidato_x_tecnologia")
 public class CandidateByTechnology {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_candidato_x_tecnologia")
-    private Integer id;
+    private Long id;
 
     @JoinColumn(name = "candidateId", referencedColumnName = "candidateId")
     @ManyToOne
