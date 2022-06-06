@@ -1,6 +1,9 @@
 package com.example.testbackenddeveloper.controller;
 
 import com.example.testbackenddeveloper.models.entities.Candidate;
+import com.example.testbackenddeveloper.services.CandidateService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,23 +20,33 @@ import java.util.List;
 @RestController
 public class CandidateController {
 
+    @Autowired
+    private CandidateService candidateService;
+
     @PostMapping("/")
-    public ResponseEntity<Object>create(@RequestBody Candidate candidate) {
+    public ResponseEntity<Candidate>create(@RequestBody Candidate candidate) {
+        return new ResponseEntity<>(candidateService.save(candidate), HttpStatus.CREATED);
     }
 
+
     @GetMapping("/")
-    public ResponseEntity<List<Object>>getAll() {
+    public ResponseEntity<List<Candidate>>getAll() {
+        return new ResponseEntity<>(candidateService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object>getById(@RequestParam Long id) {
+        return new ResponseEntity<>(candidateService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object>deleteById(@RequestParam Long id) {
+    public ResponseEntity<HttpStatus>deleteById(@RequestParam Long id) {
+        candidateService.deleteCandidate(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/{id")
-    public ResponseEntity<Object>updateCandidate(@RequestParam Long id) {
+    public ResponseEntity<Object>updateCandidate(@RequestBody Candidate candidate, @RequestParam Long id) {
+        return new ResponseEntity<>(candidateService.update(candidate,id), HttpStatus.OK);
     }
 }
