@@ -1,8 +1,10 @@
 package com.example.testbackenddeveloper.TestUtils;
 
 import com.example.testbackenddeveloper.models.entities.Candidate;
+import com.example.testbackenddeveloper.models.entities.CandidateByTechnology;
 import com.example.testbackenddeveloper.models.entities.Technology;
 import com.example.testbackenddeveloper.models.enums.Type;
+import com.example.testbackenddeveloper.models.views.CandidateByTechnologyDto;
 import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.models.views.TechnologyDto;
 
@@ -33,6 +35,23 @@ public class TestEntityFactory {
                 .name("java")
                 .version("11.0")
                 .candidateByTechnologies(null)
+                .build();
+    }
+
+    public static CandidateByTechnology getCandidateByTechnology() {
+        return CandidateByTechnology.builder()
+                .id(1L)
+                .technology(getTechnology())
+                .candidate(getCandidate())
+                .yearsOfExperience(1l)
+                .build();
+    }
+
+    public static CandidateByTechnologyDto getCandidateByTechnologyDto() {
+        return CandidateByTechnologyDto.builder()
+                .technology(getTechnology())
+                .candidate(getCandidate())
+                .yearsOfExperience(1l)
                 .build();
     }
 

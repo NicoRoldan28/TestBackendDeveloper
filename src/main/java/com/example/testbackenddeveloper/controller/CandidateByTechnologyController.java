@@ -34,7 +34,7 @@ public class CandidateByTechnologyController {
                 .path("/{id}")
                 .buildAndExpand(newCandidateByTechnology.getId())
                 .toUri();
-        return new ResponseEntity<>(location, (HttpStatus.CREATED));
+        return new ResponseEntity<>(location, HttpStatus.CREATED);
     }
 
     @GetMapping("/")
