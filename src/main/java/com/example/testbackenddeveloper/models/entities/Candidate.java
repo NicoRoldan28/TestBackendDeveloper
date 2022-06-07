@@ -28,7 +28,6 @@ import java.util.List;
 @Table(name = "candidatos")
 public class Candidate {
 
-    public static final String fechaDeCumpleaños = "cumpleaños";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long candidateId;
