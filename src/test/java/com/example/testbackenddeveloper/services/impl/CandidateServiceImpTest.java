@@ -4,13 +4,11 @@ import com.example.testbackenddeveloper.exception.CandidateNotFoundException;
 import com.example.testbackenddeveloper.models.entities.Candidate;
 import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.repository.CandidateRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +26,11 @@ import static org.mockito.Mockito.when;
 
 class CandidateServiceImpTest extends AbstractMvcTestServices {
 
-
     @InjectMocks
     CandidateServiceImp candidateServiceImp;
 
     @Mock
     CandidateRepository candidateRepository;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-
-    }
 
     @Test
     void findByIdTest() {

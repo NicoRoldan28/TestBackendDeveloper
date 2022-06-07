@@ -8,9 +8,12 @@ import java.util.List;
 
 public interface CandidateByTechnologyService {
 
-    List<CandidateByTechnology> findAll();
+    List<CandidateByTechnologyDto> findAll();
+
     CandidateByTechnology findById(Long id);
+
     CandidateByTechnology save(CandidateByTechnologyDto candidateByTechnologyDto);
+
     List<CandidateByTechnologyProjection> getByNameTechnology(String name);
 
 }

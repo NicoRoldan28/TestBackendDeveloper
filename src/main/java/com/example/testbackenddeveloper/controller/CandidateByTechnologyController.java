@@ -38,7 +38,7 @@ public class CandidateByTechnologyController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CandidateByTechnology>> getAll() {
+    public ResponseEntity<List<CandidateByTechnologyDto>> getAll() {
         return new ResponseEntity<>(candidateByTechnologyService.findAll(), HttpStatus.OK);
     }
 
