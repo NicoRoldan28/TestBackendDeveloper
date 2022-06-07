@@ -16,34 +16,34 @@ public class RespEntityExceptionHandler {
 
 
     @ExceptionHandler(CandidateNotExistException.class)
-    ResponseEntity<?> CandidateNotExistException(Exception e) {
+    ResponseEntity<String> CandidateNotExistException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
     @ExceptionHandler(CandidateNotFoundException.class)
-    ResponseEntity<?> candidateNotFoundException(Exception e) {
+    ResponseEntity<String> candidateNotFoundException(Exception e) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
 
     @ExceptionHandler(TechnologyNotExistException.class)
-    public ResponseEntity<?> technologyNotExistException(Exception exception) {
+    public ResponseEntity<String> technologyNotExistException(Exception exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
     @ExceptionHandler(value = {TechnologyNotFoundException.class})
-    ResponseEntity<?> technologyNotFoundException(Exception e) {
+    ResponseEntity<String> technologyNotFoundException(Exception e) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
 
     @ExceptionHandler(CandidateByTechnologyNotFoundException.class)
-    ResponseEntity<?> candidateByTechnologyNotFoundException(Exception e) {
+    ResponseEntity<String> candidateByTechnologyNotFoundException(Exception e) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
     @ExceptionHandler(CandidateByTechnologyNotExistException.class)
-    ResponseEntity<?> CandidateByTechnologyNotExistException(Exception e) {
+    ResponseEntity<String> CandidateByTechnologyNotExistException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
