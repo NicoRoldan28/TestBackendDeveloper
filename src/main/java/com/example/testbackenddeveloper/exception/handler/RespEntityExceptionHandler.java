@@ -16,7 +16,7 @@ public class RespEntityExceptionHandler {
 
 
     @ExceptionHandler(CandidateNotExistException.class)
-    ResponseEntity<String> CandidateNotExistException(Exception e) {
+    ResponseEntity<String> candidateNotExistException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
@@ -43,7 +43,7 @@ public class RespEntityExceptionHandler {
     }
 
     @ExceptionHandler(CandidateByTechnologyNotExistException.class)
-    ResponseEntity<String> CandidateByTechnologyNotExistException(Exception e) {
+    ResponseEntity<String> candidateByTechnologyNotExistException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }

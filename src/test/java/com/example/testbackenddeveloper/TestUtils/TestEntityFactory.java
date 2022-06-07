@@ -7,6 +7,8 @@ import com.example.testbackenddeveloper.models.views.CandidateDto;
 import com.example.testbackenddeveloper.models.views.TechnologyDto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestEntityFactory {
 
@@ -38,7 +40,6 @@ public class TestEntityFactory {
                 .name("nicolas")
                 .lastName("roldan")
                 .type(Type.DNI)
-                //.birthday(birthday)
                 .candidateByTechnologies(null)
                 .build();
         return candidateDto;
@@ -48,14 +49,36 @@ public class TestEntityFactory {
         LocalDate birthday = LocalDate.of(2022, 4, 4);
         Candidate candidate = Candidate.builder()
                 .candidateId(1L)
-                .candidateByTechnologies(null)
                 .dni("12313")
                 .name("nicolas")
                 .lastName("roldan")
-                //.birthday(birthday)
                 .type(Type.DNI)
+                .candidateByTechnologies(null)
                 .build();
         return candidate;
+    }
+
+    public static Candidate getCandidateWithoutId() {
+        Candidate candidate = Candidate.builder()
+                .dni("12313")
+                .name("nicolas")
+                .lastName("roldan")
+                .type(Type.DNI)
+                .candidateByTechnologies(null)
+                .build();
+        return candidate;
+    }
+
+    public static List<Candidate> getCandidateList() {
+        List<Candidate> candidateList = new ArrayList<>();
+        candidateList.add(getCandidate());
+        return candidateList;
+    }
+
+    public static List<CandidateDto> getCandidateDtoList() {
+        List<CandidateDto> candidateDtoList = new ArrayList<>();
+        candidateDtoList.add(getCandidateDto());
+        return candidateDtoList;
     }
 
 

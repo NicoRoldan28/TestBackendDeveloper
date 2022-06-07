@@ -9,6 +9,7 @@ import com.example.testbackenddeveloper.services.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,15 +42,14 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
+    @Transactional
     public Candidate findById(Long id) {
         return candidateRepository.findById(id).orElseThrow(() -> new CandidateNotExistException("No existe un candidato con ese id"));
     }
 
     @Override
     public void deleteCandidate(Long id) {
-        if (this.findById(id) != null) {
-            candidateRepository.deleteById(id);
-        }
+        candidateRepository.deleteById(id);
     }
 
     @Override
