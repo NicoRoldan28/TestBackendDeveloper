@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface CandidateService {
 
-    List<Candidate> findAll();
+    List<CandidateDto> findAll();
+
     Candidate findById(Long id);
+
     void deleteCandidate(Long id);
+
     Candidate save(CandidateDto candidate);
+
     Candidate update(Candidate candidate, Long id);
 }

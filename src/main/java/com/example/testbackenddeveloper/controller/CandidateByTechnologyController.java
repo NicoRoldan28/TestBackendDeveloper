@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,18 +29,18 @@ public class CandidateByTechnologyController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CandidateByTechnology>> getAll(){
-        return new ResponseEntity<>(candidateByTechnologyService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<CandidateByTechnology>> getAll() {
+        return new ResponseEntity<>(candidateByTechnologyService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CandidateByTechnology> getById(@RequestParam Long id){
-        return new ResponseEntity<>(candidateByTechnologyService.findById(id),HttpStatus.OK);
+    public ResponseEntity<CandidateByTechnology> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(candidateByTechnologyService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/nameTechnology/{name}")
     public ResponseEntity<List<CandidateByTechnologyProjection>> getByNameTechnology(@PathVariable String name) {
-        return new ResponseEntity<>(candidateByTechnologyService.getByNameTechnology(name),HttpStatus.OK);
+        return new ResponseEntity<>(candidateByTechnologyService.getByNameTechnology(name), HttpStatus.OK);
     }
 
 }

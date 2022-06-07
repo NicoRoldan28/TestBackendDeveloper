@@ -1,5 +1,6 @@
 package com.example.testbackenddeveloper.services.impl;
 
+import com.example.testbackenddeveloper.exception.CandidateByTechnologyNotExistException;
 import com.example.testbackenddeveloper.models.entities.CandidateByTechnology;
 import com.example.testbackenddeveloper.models.views.CandidateByTechnologyDto;
 import com.example.testbackenddeveloper.projection.CandidateByTechnologyProjection;
@@ -23,12 +24,12 @@ public class CandidateByTechnologyServiceImp implements CandidateByTechnologySer
 
     @Override
     public CandidateByTechnology findById(Long id) {
-        return candidateByTechnologyRepository.findById(id).orElseThrow();
+        return candidateByTechnologyRepository.findById(id).orElseThrow(() -> new CandidateByTechnologyNotExistException("No existe una un candidato x tecnologia con ese id"));
     }
 
     @Override
     public CandidateByTechnology save(CandidateByTechnologyDto candidateByTechnologyDto) {
-        CandidateByTechnology candidate= CandidateByTechnology.builder()
+        CandidateByTechnology candidate = CandidateByTechnology.builder()
                 .candidate(candidateByTechnologyDto.getCandidate())
                 .technology(candidateByTechnologyDto.getTechnology())
                 .yearsOfExperience(candidateByTechnologyDto.getYearsOfExperience())

@@ -6,68 +6,44 @@ import com.example.testbackenddeveloper.exception.CandidateNotExistException;
 import com.example.testbackenddeveloper.exception.CandidateNotFoundException;
 import com.example.testbackenddeveloper.exception.TechnologyNotExistException;
 import com.example.testbackenddeveloper.exception.TechnologyNotFoundException;
-import com.example.testbackenddeveloper.message.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.persistence.EntityNotFoundException;
 
 @ControllerAdvice
-public class RespEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class RespEntityExceptionHandler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    ResponseEntity<ResponseMessage> entityNotFoundException(EntityNotFoundException entityNotFoundException) {
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body((ResponseMessage.builder()
-                        .message(entityNotFoundException.getMessage()).build()));
-    }
 
     @ExceptionHandler(CandidateNotExistException.class)
-    public ResponseEntity<ResponseMessage> candidateNotExistException(CandidateNotExistException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ResponseMessage.builder()
-                        .message(exception.getMessage()).build());
+    ResponseEntity<?> CandidateNotExistException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
     @ExceptionHandler(CandidateNotFoundException.class)
-    ResponseEntity<ResponseMessage> candidateNotFoundException(EntityNotFoundException entityNotFoundException) {
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body((ResponseMessage.builder()
-                        .message(entityNotFoundException.getMessage()).build()));
+    ResponseEntity<?> candidateNotFoundException(Exception e) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
+
 
     @ExceptionHandler(TechnologyNotExistException.class)
-    public ResponseEntity<ResponseMessage> technologyNotExistException(TechnologyNotExistException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ResponseMessage.builder()
-                        .message(exception.getMessage()).build());
+    public ResponseEntity<?> technologyNotExistException(Exception exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
-    @ExceptionHandler(TechnologyNotFoundException.class)
-    ResponseEntity<ResponseMessage> technologyNotFoundException(EntityNotFoundException entityNotFoundException) {
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body((ResponseMessage.builder()
-                        .message(entityNotFoundException.getMessage()).build()));
+    @ExceptionHandler(value = {TechnologyNotFoundException.class})
+    ResponseEntity<?> technologyNotFoundException(Exception e) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
+
 
     @ExceptionHandler(CandidateByTechnologyNotFoundException.class)
-    ResponseEntity<ResponseMessage> candidateByTechnologyNotFoundException(EntityNotFoundException entityNotFoundException) {
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body((ResponseMessage.builder()
-                        .message(entityNotFoundException.getMessage()).build()));
+    ResponseEntity<?> candidateByTechnologyNotFoundException(Exception e) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
     @ExceptionHandler(CandidateByTechnologyNotExistException.class)
-    public ResponseEntity<ResponseMessage> candidateByTechnologyNotExistException(CandidateByTechnologyNotExistException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ResponseMessage.builder()
-                        .message(exception.getMessage()).build());
+    ResponseEntity<?> CandidateByTechnologyNotExistException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
