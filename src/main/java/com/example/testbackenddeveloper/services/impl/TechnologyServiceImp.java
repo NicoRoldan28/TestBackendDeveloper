@@ -43,7 +43,9 @@ public class TechnologyServiceImp implements TechnologyService {
 
     @Override
     public void deleteTechnology(Long id) {
-        technologyRepository.deleteById(id);
+        if (this.findById(id) != null) {
+            technologyRepository.deleteById(id);
+        }
     }
 
     @Override
@@ -57,11 +59,17 @@ public class TechnologyServiceImp implements TechnologyService {
     }
 
     @Override
-    public Technology update(TechnologyDto technologyDto, Long id) {
-        Technology technology = Technology.builder()
-                .name(technologyDto.getName())
-                .version(technologyDto.getVersion())
-                .build();
-        return technologyRepository.save(technology);
+    public TechnologyDto update(TechnologyDto technologyDto, Long id) {
+        if (this.findById(id) != null) {
+            Technology technology = Technology.builder()
+                    .name(technologyDto.getName())
+                    .version(technologyDto.getVersion())
+                    .candidateByTechnologies(technologyDto.getCandidateByTechnologies())
+                    .build();
+            technologyRepository.save(technology);
+            return technologyDto;
+        } else {
+            throw new TechnologyNotExistException("La tecnologia no existe");
+        }
     }
 }

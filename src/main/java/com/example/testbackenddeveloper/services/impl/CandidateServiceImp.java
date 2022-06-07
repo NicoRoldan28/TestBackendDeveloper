@@ -47,7 +47,9 @@ public class CandidateServiceImp implements CandidateService {
 
     @Override
     public void deleteCandidate(Long id) {
-        candidateRepository.deleteById(id);
+        if (this.findById(id) != null) {
+            candidateRepository.deleteById(id);
+        }
     }
 
     @Override

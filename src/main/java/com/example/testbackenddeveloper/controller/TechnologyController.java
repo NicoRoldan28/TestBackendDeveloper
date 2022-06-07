@@ -1,5 +1,6 @@
 package com.example.testbackenddeveloper.controller;
 
+import com.example.testbackenddeveloper.models.entities.Technology;
 import com.example.testbackenddeveloper.models.views.TechnologyDto;
 import com.example.testbackenddeveloper.services.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RequestMapping(value = "/api/technology")
@@ -25,8 +27,15 @@ public class TechnologyController {
     private TechnologyService technologyService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@RequestBody TechnologyDto technology) {
-        return new ResponseEntity<>(technologyService.save(technology), HttpStatus.CREATED);
+    public ResponseEntity<URI> create(@RequestBody TechnologyDto technologyDto) {
+
+        Technology newTechnology = technologyService.save(technologyDto);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newTechnology.getTechnologyId())
+                .toUri();
+        return new ResponseEntity<>(location, (HttpStatus.CREATED));
     }
 
     @GetMapping("/")
@@ -35,18 +44,19 @@ public class TechnologyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable Long id) {
+    public ResponseEntity<Technology> getById(@PathVariable Long id) {
         return new ResponseEntity<>(technologyService.findById(id), HttpStatus.OK);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         technologyService.deleteTechnology(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateTechnology(@RequestBody TechnologyDto technologyDto, @RequestParam Long id) {
+    public ResponseEntity<TechnologyDto> updateTechnology(@RequestBody TechnologyDto technologyDto, @PathVariable Long id) {
         return new ResponseEntity<>(technologyService.update(technologyDto, id), HttpStatus.OK);
     }
 }

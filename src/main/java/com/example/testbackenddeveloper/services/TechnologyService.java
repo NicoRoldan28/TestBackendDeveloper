@@ -15,5 +15,5 @@ public interface TechnologyService {
 
     Technology save(TechnologyDto technology);
 
-    Technology update(TechnologyDto technologyDto, Long id);
+    TechnologyDto update(TechnologyDto technologyDto, Long id);
 }

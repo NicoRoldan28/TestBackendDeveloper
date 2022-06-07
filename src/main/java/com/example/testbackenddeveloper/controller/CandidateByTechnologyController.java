@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RequestMapping(value = "api/candidatoByTechnology")
@@ -24,8 +26,15 @@ public class CandidateByTechnologyController {
     private CandidateByTechnologyService candidateByTechnologyService;
 
     @PostMapping("/")
-    public ResponseEntity<CandidateByTechnology> create(@RequestBody CandidateByTechnologyDto candidateByTechnologyDto) {
-        return new ResponseEntity<>(candidateByTechnologyService.save(candidateByTechnologyDto), HttpStatus.CREATED);
+    public ResponseEntity<URI> create(@RequestBody CandidateByTechnologyDto candidateByTechnologyDto) {
+
+        CandidateByTechnology newCandidateByTechnology = candidateByTechnologyService.save(candidateByTechnologyDto);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newCandidateByTechnology.getId())
+                .toUri();
+        return new ResponseEntity<>(location, (HttpStatus.CREATED));
     }
 
     @GetMapping("/")

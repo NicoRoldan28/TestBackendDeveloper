@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RequestMapping(value = "/api/candidate")
@@ -27,8 +29,14 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping("/")
-    public ResponseEntity<Candidate> create(@RequestBody CandidateDto candidate) {
-        return new ResponseEntity<>(candidateService.save(candidate), HttpStatus.CREATED);
+    public ResponseEntity<URI> create(@RequestBody CandidateDto candidateDto) {
+        Candidate newCandidate = candidateService.save(candidateDto);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newCandidate.getCandidateId())
+                .toUri();
+        return new ResponseEntity<>(location, (HttpStatus.CREATED));
     }
 
     @GetMapping("/")
@@ -37,12 +45,12 @@ public class CandidateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable Long id) {
+    public ResponseEntity<Candidate> getById(@PathVariable Long id) {
         return new ResponseEntity<>(candidateService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteById(@RequestParam Long id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         candidateService.deleteCandidate(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
