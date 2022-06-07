@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RequestMapping(value = "/api/candidate")
@@ -29,14 +27,8 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping("/")
-    public ResponseEntity<URI> create(@RequestBody CandidateDto candidateDto) {
-        Candidate newCandidate = candidateService.save(candidateDto);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(newCandidate.getCandidateId())
-                .toUri();
-        return new ResponseEntity<>(location, (HttpStatus.CREATED));
+    public ResponseEntity<Candidate> create(@RequestBody CandidateDto candidateDto) {
+        return new ResponseEntity<>(candidateService.save(candidateDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/")
