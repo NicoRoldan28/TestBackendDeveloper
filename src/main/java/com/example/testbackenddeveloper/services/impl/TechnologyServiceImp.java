@@ -43,9 +43,7 @@ public class TechnologyServiceImp implements TechnologyService {
 
     @Override
     public void deleteTechnology(Long id) {
-        if (this.findById(id) != null) {
-            technologyRepository.deleteById(id);
-        }
+        technologyRepository.deleteById(id);
     }
 
     @Override
