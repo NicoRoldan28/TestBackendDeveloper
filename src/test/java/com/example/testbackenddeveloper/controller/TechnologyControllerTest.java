@@ -9,8 +9,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.example.testbackenddeveloper.TestUtils.TestEntityFactory.getTechnology;
 import static com.example.testbackenddeveloper.TestUtils.TestEntityFactory.getTechnologyDto;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class TechnologyControllerTest extends AbstractMVCTest {
@@ -49,4 +52,18 @@ class TechnologyControllerTest extends AbstractMVCTest {
                 .andExpect(status().isCreated());
     }
 
+
+    @Test
+    void updateTechnologyTestOk() throws Exception {
+
+        technologyService.update(getTechnologyDto(), 1L);
+        verify(technologyService, atLeastOnce()).update(getTechnologyDto(), 1L);
+
+        String json = new Gson().toJson(getTechnologyDto());
+
+        mockMvc.perform(put("/api/technology/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isAccepted());
+    }
 }

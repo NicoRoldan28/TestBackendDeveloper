@@ -66,7 +66,7 @@ public class TestEntityFactory {
 
     public static CandidateDto getCandidateDto() {
         return CandidateDto.builder()
-                .dni("12313")
+                .dni("41306781")
                 .name("nicolas")
                 .lastName("roldan")
                 .type(Type.DNI)
@@ -76,7 +76,7 @@ public class TestEntityFactory {
     public static Candidate getCandidate() {
         return Candidate.builder()
                 .candidateId(1L)
-                .dni("12313")
+                .dni("41306781")
                 .name("nicolas")
                 .lastName("roldan")
                 .type(Type.DNI)
@@ -86,7 +86,7 @@ public class TestEntityFactory {
 
     public static Candidate getCandidateWithoutId() {
         return Candidate.builder()
-                .dni("12313")
+                .dni("41306781")
                 .name("nicolas")
                 .lastName("roldan")
                 .type(Type.DNI)
@@ -147,7 +147,7 @@ public class TestEntityFactory {
 
             @Override
             public String getDni() {
-                return "12313";
+                return "41306781";
             }
 
             @Override
