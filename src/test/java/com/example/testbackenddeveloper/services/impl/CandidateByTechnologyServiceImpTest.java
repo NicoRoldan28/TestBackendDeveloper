@@ -72,26 +72,7 @@ class CandidateByTechnologyServiceImpTest extends AbstractMvcTestServices {
 
         Mockito.verify(candidateByTechnologyRepository, atLeastOnce()).save(getCandidateByTechnologyWithoutId());
     }
-
-    /*
-    @Test
-    void findByIdTest() {
-
-        CandidateByTechnology newCandidateByTechnology = getCandidateByTechnology();
-
-        when(candidateByTechnologyRepository.findById(1L)).thenReturn(Optional.ofNullable(getCandidateByTechnology()));
-
-        CandidateByTechnology result = candidateByTechnologyServiceImp.findById(1L);
-
-        verify(candidateByTechnologyRepository, atLeastOnce()).findById(1L);
-
-
-        assertEquals(newCandidateByTechnology, result);
-
-    }
-     */
-
-
+    
     @Test
     void findByNameTechnology() {
 
