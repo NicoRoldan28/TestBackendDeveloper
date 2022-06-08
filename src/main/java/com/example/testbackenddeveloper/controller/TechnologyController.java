@@ -8,14 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class TechnologyController {
     private TechnologyService technologyService;
 
     @PostMapping("/")
-    public ResponseEntity<URI> create(@RequestBody TechnologyDto technologyDto) {
+    public ResponseEntity<URI> create(@Valid @RequestBody TechnologyDto technologyDto) {
 
         Technology newTechnology = technologyService.save(technologyDto);
         URI location = ServletUriComponentsBuilder
@@ -55,8 +56,9 @@ public class TechnologyController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<TechnologyDto> updateTechnology(@RequestBody TechnologyDto technologyDto, @PathVariable Long id) {
-        return new ResponseEntity<>(technologyService.update(technologyDto, id), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<HttpStatus> updateTechnology(@Valid @RequestBody TechnologyDto technologyDto, @PathVariable Long id) {
+        technologyService.update(technologyDto, id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

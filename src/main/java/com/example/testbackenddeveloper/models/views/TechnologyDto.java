@@ -1,12 +1,11 @@
 package com.example.testbackenddeveloper.models.views;
 
-import com.example.testbackenddeveloper.models.entities.CandidateByTechnology;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Builder
 @Data
@@ -14,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class TechnologyDto {
     private String name;
+    @NotBlank
     private String version;
-    private List<CandidateByTechnology> candidateByTechnologies;
 }

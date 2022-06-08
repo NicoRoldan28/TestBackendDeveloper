@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TechnologyServiceImp implements TechnologyService {
@@ -29,7 +30,6 @@ public class TechnologyServiceImp implements TechnologyService {
                     technologyDtos.add(TechnologyDto.builder()
                             .version(technology.getVersion())
                             .name(technology.getName())
-                            .candidateByTechnologies(technology.getCandidateByTechnologies())
                             .build()
                     ));
             return technologyDtos;
@@ -57,15 +57,12 @@ public class TechnologyServiceImp implements TechnologyService {
     }
 
     @Override
-    public TechnologyDto update(TechnologyDto technologyDto, Long id) {
-        if (this.findById(id) != null) {
-            Technology technology = Technology.builder()
-                    .name(technologyDto.getName())
-                    .version(technologyDto.getVersion())
-                    .candidateByTechnologies(technologyDto.getCandidateByTechnologies())
-                    .build();
-            technologyRepository.save(technology);
-            return technologyDto;
+    public void update(TechnologyDto technologyDto, Long id) {
+        if (technologyRepository.existsById(id)) {
+            Optional<Technology> technology = technologyRepository.findById(id);
+            technology.get().setVersion(technologyDto.getVersion());
+
+            technologyRepository.save(technology.get());
         } else {
             throw new TechnologyNotExistException("La tecnologia no existe");
         }

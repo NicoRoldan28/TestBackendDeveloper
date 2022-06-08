@@ -19,7 +19,6 @@ public class TestEntityFactory {
         return TechnologyDto.builder()
                 .name("java")
                 .version("11.0")
-                .candidateByTechnologies(null)
                 .build();
     }
 
@@ -71,7 +70,6 @@ public class TestEntityFactory {
                 .name("nicolas")
                 .lastName("roldan")
                 .type(Type.DNI)
-                .candidateByTechnologies(null)
                 .build();
     }
 

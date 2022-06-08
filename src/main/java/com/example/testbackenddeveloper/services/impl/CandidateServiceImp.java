@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CandidateServiceImp implements CandidateService {
@@ -35,7 +36,6 @@ public class CandidateServiceImp implements CandidateService {
                         .name(candidate.getName())
                         .dni(candidate.getDni())
                         .birthday(candidate.getBirthday())
-                        .candidateByTechnologies(candidate.getCandidateByTechnologies())
                         .build()
                 ));
         return candidateDtos;
@@ -65,7 +65,19 @@ public class CandidateServiceImp implements CandidateService {
         return candidateRepository.save(candidate);
     }
 
-    public Candidate update(Candidate candidate, Long id) {
-        return candidateRepository.save(candidate);
+    public Candidate update(CandidateDto candidateDto, Long id) {
+        if (candidateRepository.existsById(id)) {
+            Optional<Candidate> candidate = candidateRepository.findById(id);
+            candidate.get().setName(candidateDto.getName());
+            candidate.get().setLastName(candidateDto.getLastName());
+            candidate.get().setDni(candidateDto.getDni());
+            candidate.get().setType(candidateDto.getType());
+            candidate.get().setBirthday(candidateDto.getBirthday());
+
+            candidateRepository.save(candidate.get());
+            return candidate.get();
+        } else {
+            throw new CandidateNotFoundException("El candidato no existe");
+        }
     }
 }
