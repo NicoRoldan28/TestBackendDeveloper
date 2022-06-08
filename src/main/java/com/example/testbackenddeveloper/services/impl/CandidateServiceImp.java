@@ -65,9 +65,9 @@ public class CandidateServiceImp implements CandidateService {
         return candidateRepository.save(candidate);
     }
 
-    public Candidate update(CandidateDto candidateDto, Long id) {
-        if (candidateRepository.existsById(id)) {
-            Optional<Candidate> candidate = candidateRepository.findById(id);
+    public void update(CandidateDto candidateDto, Long id) {
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+        if (candidate.isPresent()) {
             candidate.get().setName(candidateDto.getName());
             candidate.get().setLastName(candidateDto.getLastName());
             candidate.get().setDni(candidateDto.getDni());
@@ -75,7 +75,6 @@ public class CandidateServiceImp implements CandidateService {
             candidate.get().setBirthday(candidateDto.getBirthday());
 
             candidateRepository.save(candidate.get());
-            return candidate.get();
         } else {
             throw new CandidateNotFoundException("El candidato no existe");
         }

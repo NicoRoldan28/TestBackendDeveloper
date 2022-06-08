@@ -15,5 +15,5 @@ public interface CandidateService {
 
     Candidate save(CandidateDto candidate);
 
-    Candidate update(CandidateDto candidateDto, Long id);
+    void update(CandidateDto candidateDto, Long id);
 }

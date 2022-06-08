@@ -58,8 +58,9 @@ public class TechnologyServiceImp implements TechnologyService {
 
     @Override
     public void update(TechnologyDto technologyDto, Long id) {
-        if (technologyRepository.existsById(id)) {
-            Optional<Technology> technology = technologyRepository.findById(id);
+
+        Optional<Technology> technology = technologyRepository.findById(id);
+        if (technology.isPresent()) {
             technology.get().setVersion(technologyDto.getVersion());
 
             technologyRepository.save(technology.get());

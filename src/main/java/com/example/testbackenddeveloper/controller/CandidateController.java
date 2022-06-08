@@ -56,7 +56,8 @@ public class CandidateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateCandidate(@Valid @RequestBody CandidateDto candidateDto, @PathVariable Long id) {
-        return new ResponseEntity<>(candidateService.update(candidateDto, id), HttpStatus.OK);
+    public ResponseEntity<HttpStatus> updateCandidate(@Valid @RequestBody CandidateDto candidateDto, @PathVariable Long id) {
+        candidateService.update(candidateDto, id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
