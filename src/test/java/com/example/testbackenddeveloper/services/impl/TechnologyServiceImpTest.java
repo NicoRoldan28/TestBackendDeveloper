@@ -1,5 +1,6 @@
 package com.example.testbackenddeveloper.services.impl;
 
+import com.example.testbackenddeveloper.exception.TechnologyNotExistException;
 import com.example.testbackenddeveloper.exception.TechnologyNotFoundException;
 import com.example.testbackenddeveloper.models.entities.Technology;
 import com.example.testbackenddeveloper.models.views.TechnologyDto;
@@ -43,10 +44,10 @@ class TechnologyServiceImpTest extends AbstractMvcTestServices {
     }
 
     @Nested
-    class FindAllCandidateTest {
+    class FindAllTechnologyTest {
 
         @Test
-        void findAllCandidateTest() {
+        void findAllTechnologyTest() {
             List<Technology> technologyList = getTechnologyList();
             List<TechnologyDto> technologyDtoList = new ArrayList<>();
             technologyDtoList.add(getTechnologyDto());
@@ -56,24 +57,42 @@ class TechnologyServiceImpTest extends AbstractMvcTestServices {
         }
 
         @Test
-        void findAllCandidateTestFail() {
+        void findAllTechnologyTestFail() {
             assertThrows(TechnologyNotFoundException.class, () -> technologyServiceImp.findAll());
         }
     }
 
     @Test
-    void deleteCandidateTest() {
+    void deleteTechnologyTest() {
         technologyServiceImp.deleteTechnology(getTechnology().getTechnologyId());
         Mockito.verify(technologyRepository, atLeastOnce()).deleteById(getTechnology().getTechnologyId());
     }
 
     @Test
-    void saveCandidateTest() {
+    void saveTechnologyTest() {
 
         when(technologyRepository.save(getTechnologyWithoutId())).thenReturn(getTechnology());
         technologyServiceImp.save(getTechnologyDto());
 
         Mockito.verify(technologyRepository, atLeastOnce()).save(getTechnologyWithoutId());
     }
+
+    @Nested
+    class UpdateTechnologyTest {
+        @Test
+        void updateTechnologyTest() {
+            when(technologyRepository.findById(1L)).thenReturn(Optional.ofNullable(getTechnology()));
+
+            technologyServiceImp.update(getTechnologyDto(), 1L);
+
+            verify(technologyRepository, atLeastOnce()).save(getTechnology());
+        }
+
+        @Test
+        void updateTechnologyTestFail() {
+            assertThrows(TechnologyNotExistException.class, () -> technologyServiceImp.update(getTechnologyDto(), 2L));
+        }
+    }
+
 
 }

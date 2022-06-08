@@ -75,5 +75,21 @@ class CandidateServiceImpTest extends AbstractMvcTestServices {
         Mockito.verify(candidateRepository, atLeastOnce()).save(getCandidateWithoutId());
     }
 
+    @Nested
+    class UpdateCandidateTest {
+        @Test
+        void updateCandidateTest() {
+            when(candidateRepository.findById(1L)).thenReturn(Optional.ofNullable(getCandidate()));
+
+            candidateServiceImp.update(getCandidateDto(), 1L);
+
+            verify(candidateRepository, atLeastOnce()).save(getCandidate());
+        }
+
+        @Test
+        void updateCandidateTestFail() {
+            assertThrows(CandidateNotFoundException.class, () -> candidateServiceImp.update(getCandidateDto(), 2L));
+        }
+    }
 
 }
